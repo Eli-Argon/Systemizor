@@ -1,6 +1,6 @@
-﻿fExtrasize(sExtra, pFile) { ; Converting a RODSTOCK block with extra reinforcement data from UNITECHNIK to XML;
-	Local                   ; Sorts data by length and diameter, returns XML text.
-	sTemplateTop =
+﻿fExtrasyze(oSteelExtra, pFileSauce) { ; Extracts extra reinforcement data from a PXML Steel node;
+	Local                             ; Sorts data by length and diameter, returns XML string;
+	sTemplateTop =                    ; pFileSauce is just for the fAbort.
 (
 <xml xmlns:s='uuid:BDC6E3F0-6DA3-11d1-A2A3-00AA00C14882'
 	xmlns:dt='uuid:C2F41010-65B3-11d1-A29F-00AA00C14882'
@@ -191,35 +191,32 @@
 </rs:data>
 </xml>
 )
-	If (sExtra == "")
-		return ""
-    pos := RegExMatch(sExtra, "sSxD)"
-				. "^RODSTOCK\r?\n600\r?\n\d{3}\r?\n"
-				. "(?<data> \d{3}\s  \d{3}\s  \d\s  [A-Za-z0-9\s]{10}\s (?:\d{5})\s  (?:\d{3})\s  (?:\d{5})\s" ; quantity, diameter, length
-				. "[+-]\d{5}\s  [+-]\d{5}\s  [+-]\d{5}\s  [+-]\d{3}\s  [A-Za-z0-9\s]{10}\s  [012]\r?\n"
-				. "\d{3}\s  \d{3}\s  \d{3}\s  \d{5}\s  \d{5}\s  \d{5}\s  00[012]\r?\n)*"
-				. "END\r?\n$", sExtra_)            
-	fAbort(!pos, A_ThisFunc, "Блок с усилениями не опознан.", { "pFile": pFile, "sExtra": sExtra })
-	If (sExtra_data == "")
-		return ""
-    ; ############################################# Making a list of extra reinforcement ###################################################
-    dList := {}
-    Loop, parse, sExtra, `n, `r
-	{
-		If (StrLen(A_LoopField) < 75) 
-			continue
-		nBarLength := 0 + SubStr(A_LoopField, 32, 5), nBarDiameter := 0 + SubStr(A_LoopField, 28, 3)
-		bar := nBarLength "-" nBarDiameter
-		
-		If (dList[bar] != "")
-			dList[bar]["quantity"] += SubStr(A_LoopField, 22, 5) 
-		else
-			dList[bar] := { length: (nBarLength), diameter: (nBarDiameter), quantity: (0 + SubStr(A_LoopField, 22, 5)) }
+
+	fAbort((oSteelExtra.getAttribute("Type") != "none"), A_ThisFunc, "Неверныи̌ атрибут ""Тип""."
+	, { "pFileSauce": pFileSauce })
+
+    ; ######################### Making a list of extra reinforcement ###########################
+    dList := {} ; dList = { "2780-8": { length: 2780, diameter: 8, quantity: 2 }, ... }
+	For oBar in oSteelExtra.selectNodes(ns("Bar")) {
+
+		fAbort((oBar.selectNodes(ns("Segment")).length > 1), A_ThisFunc
+		,"An extra reinforcement bar has more than one segment.")
+
+        sBarLeng := oBar.selectSingleNode(ns("Segment", "L")).text
+		sBarDiam := oBar.selectSingleNode(ns("Diameter")).text
+        sBarQuan := oBar.selectSingleNode(ns("PieceCount")).text
+		sBarName := sBarLeng . sBarDiam
+		If (dList[sBarName] != "")
+			 dList[sBarName]["quantity"] += sBarQuan
+		else dList[sBarName] := { length: sBarLeng, diameter: sBarDiam, quantity: sBarQuan }
 	}
-    ; ++++++++++++++++++++++++++++++++++ Sorting the list of extra reinforcement +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    ; +++++++++++++++ Sorting the list of extra reinforcement ++++++++++++++++++++++++++++++++++
     aSortedList := []
     For key, value in dList
         aSortedList.Push(value)
+	If (aSortedList.Length() == 0) ; If there is a Type="none" Steel node that has no Bar nodes
+		return ""                  ; then return empty string
+
     stop := 1
     Loop {
         stop := 1
@@ -234,9 +231,8 @@
             }
         }
     } until stop
-	; ////////////////////////////////////////// Now we create the XML file's contents /////////////////////////////////////////////////////
-    sExtraXml := sTemplateTop
-	
+	; ////////////////// Forming the XML file's contents ///////////////////////////////////////
+    sExtraXml := sTemplateTop	
     For i, dRowData in aSortedList {
 		; 13 - 0d00, 14 - 0e00, 15 - 0f00, 16 - 1000, 17 - 1100, 18 - 1200, 19 - 1300
 		; 254 - fe00, 255 - ff00, 256 - 0001, 257 - 0101, 258 - 0201
@@ -255,8 +251,8 @@
 
 )
         sExtraXml .= row
-    }
-	
+    }	
     sExtraXml .= sTemplateBot
-    return sExtraXml
+        
+	return sExtraXml
 }

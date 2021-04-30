@@ -1,9 +1,12 @@
 ﻿class cLogger {
 	static sColEnd := "ø", sRowEnd := "ż"
+	; Takes the log's name and a variable number of column entries.
 	add(log, cols*) {
 		For idx, col in cols
 			this[log] .= col . (idx < cols.MaxIndex() ? this.sColEnd : this.sRowEnd)
 	}
+	; Takes an array of log names; sorts, pads, saves (replacing old). If a log name
+	; is empty, just deletes the file (if exists). 
 	save(aLogs) {                                             ; MsgBox % "cLogger.save()"		
 		If !isObject(aLogs)
 			return                                            ; MsgBox % "cLogger.save(): isObject = true"		
@@ -34,6 +37,8 @@
 			oLogFile.Close()
 		}
 	}
+	; Takes an array of log names; removes them from the logger object
+	; and deletes the files.
 	del(aLogs) {
 		If !isObject(aLogs)
 			return
@@ -47,6 +52,7 @@
 	}
 }
 
+; Calls ExitApp if the condition is true. Shows a message and given vars.
 fAbort(isCondition, sFuncName, sNote, dVars:="") {
 	If isCondition {
 		sAbortMessage := % sFuncName ": " sNote
@@ -58,6 +64,7 @@ fAbort(isCondition, sFuncName, sNote, dVars:="") {
 	}
 }
 
+; Takes an array of file\dir paths and deletes them.
 fClean(aToDelete) {
 	If !isObject(aToDelete)
 		return
@@ -73,6 +80,7 @@ fClean(aToDelete) {
 	}	
 }
 
+; Takes an object, returns string.
 fObjToStr(obj) {
 	If !IsObject(obj)
 		return obj
@@ -82,6 +90,7 @@ fObjToStr(obj) {
 	return str "`n}"
 }
 
+; Natural sort: digits in filenames are grouped into numbers.
 fNaturalSort(a, b) {
 	return DllCall("shlwapi.dll\StrCmpLogicalW", "ptr", &a, "ptr", &b, "int")
 }
