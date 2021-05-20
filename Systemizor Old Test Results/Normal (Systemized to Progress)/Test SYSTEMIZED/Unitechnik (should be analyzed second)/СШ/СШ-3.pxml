@@ -1,0 +1,212 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<PXML_Document xmlns="http://progress-m.com/ProgressXML/Version1">
+  <DocInfo>
+    <MajorVersion>1</MajorVersion>
+    <MinorVersion>3</MinorVersion>
+  </DocInfo>
+  <Order>
+    <OrderNo>Обємні блоки армуван</OrderNo>
+    <DrawingDate>16.12.2020</DrawingDate>
+    <DrawingAuthor>Allpl. CompanyNam CHIEF-01</DrawingAuthor>
+    <GenericOrderInfo04>Обємні блоки армуван</GenericOrderInfo04>
+    <Product>
+      <ElementNo>СШ-3</ElementNo>
+      <ProductType>09</ProductType>
+      <TotalThickness>100</TotalThickness>
+      <PieceCount>1</PieceCount>
+      <Comment>lfdNr=0000;</Comment>
+      <StackNo>00000</StackNo>
+      <StackingSequence>000</StackingSequence>
+      <StackingLevel>000</StackingLevel>
+      <P1X>-10532</P1X>
+      <P1Y>5020</P1Y>
+      <P1Z>3010</P1Z>
+      <P2X>-10532</P2X>
+      <P2Y>5020</P2Y>
+      <P2Z>4010</P2Z>
+      <P3X>-11532</P3X>
+      <P3Y>5020</P3Y>
+      <P3Z>3010</P3Z>
+      <AdditionInfo>00</AdditionInfo>
+      <UnloadingInfo>00</UnloadingInfo>
+      <TransportInfo>00</TransportInfo>
+      <ItemPosition>@@00</ItemPosition>
+      <Slab>
+        <SlabNo>СШ-3</SlabNo>
+        <ProductAddition>00</ProductAddition>
+        <ProductionWay>00</ProductionWay>
+        <NumberOfMeansOfTransport>00000</NumberOfMeansOfTransport>
+        <TransportSequence>000</TransportSequence>
+        <PileLevel>000</PileLevel>
+        <TypeOfUnloading>00</TypeOfUnloading>
+        <MeansOfTransport>00</MeansOfTransport>
+        <SlabArea>5.404</SlabArea>
+        <SlabWeight>1351</SlabWeight>
+        <ProductionThickness>100</ProductionThickness>
+        <MaxLength>1930</MaxLength>
+        <MaxWidth>2800</MaxWidth>
+        <SlabType>00</SlabType>
+        <ProjectCoordinates>-010532 005020 003010 -010532 005020 004010 -011532 005020 003010</ProjectCoordinates>
+        <ReforcemInfo>                         0</ReforcemInfo>
+        <Outline Type="lot">
+          <Height>100</Height>
+          <Name>00</Name>
+          <GenericInfo01>Стена</GenericInfo01>
+          <ConcreteQuality>C20/25</ConcreteQuality>
+          <UnitWeight>2.5</UnitWeight>
+          <Volume>0.5404</Volume>
+          <Shape>
+            <SVertex>
+              <LineAttribute>0109</LineAttribute>
+            </SVertex>
+            <SVertex>
+              <X>1930</X>
+              <LineAttribute>0009</LineAttribute>
+            </SVertex>
+            <SVertex>
+              <X>1930</X>
+              <Y>2800</Y>
+              <LineAttribute>0009</LineAttribute>
+            </SVertex>
+            <SVertex>
+              <Y>2800</Y>
+              <LineAttribute>0009</LineAttribute>
+            </SVertex>
+          </Shape>
+        </Outline>
+        <Steel Type="mesh">
+          <X>40</X>
+          <Y>20</Y>
+          <Z>51</Z>
+          <Name>MSA_1^1</Name>
+          <MeshType>0</MeshType>
+          <Bar>
+            <ReinforcementType>5</ReinforcementType>
+            <SteelQuality>B500C</SteelQuality>
+            <PieceCount>1</PieceCount>
+            <Diameter>5</Diameter>
+            <Y>28</Y>
+            <Z>1</Z>
+            <Segment Type="normal">
+              <L>1850</L>
+            </Segment>
+          </Bar>
+          <Bar>
+            <ReinforcementType>5</ReinforcementType>
+            <SteelQuality>B500C</SteelQuality>
+            <PieceCount>1</PieceCount>
+            <Diameter>8</Diameter>
+            <Y>228</Y>
+            <Segment Type="normal">
+              <L>1850</L>
+            </Segment>
+          </Bar>
+          <Bar>
+            <ReinforcementType>5</ReinforcementType>
+            <SteelQuality>B500C</SteelQuality>
+            <PieceCount>8</PieceCount>
+            <Diameter>5</Diameter>
+            <Y>478</Y>
+            <Z>1</Z>
+            <Segment Type="normal">
+              <L>1850</L>
+            </Segment>
+          </Bar>
+          <Bar>
+            <ReinforcementType>5</ReinforcementType>
+            <SteelQuality>B500C</SteelQuality>
+            <PieceCount>1</PieceCount>
+            <Diameter>8</Diameter>
+            <Y>2478</Y>
+            <Segment Type="normal">
+              <L>1850</L>
+            </Segment>
+          </Bar>
+          <Bar>
+            <ReinforcementType>5</ReinforcementType>
+            <SteelQuality>B500C</SteelQuality>
+            <PieceCount>1</PieceCount>
+            <Diameter>5</Diameter>
+            <Y>2728</Y>
+            <Z>1</Z>
+            <Segment Type="normal">
+              <L>1850</L>
+            </Segment>
+          </Bar>
+          <Bar>
+            <ReinforcementType>6</ReinforcementType>
+            <SteelQuality>B500C</SteelQuality>
+            <PieceCount>6</PieceCount>
+            <Diameter>5</Diameter>
+            <X>30</X>
+            <Z>6</Z>
+            <RotZ>90</RotZ>
+            <Segment Type="normal">
+              <L>2760</L>
+            </Segment>
+          </Bar>
+          <Bar>
+            <ReinforcementType>6</ReinforcementType>
+            <SteelQuality>B500C</SteelQuality>
+            <PieceCount>2</PieceCount>
+            <Diameter>5</Diameter>
+            <X>925</X>
+            <Z>6</Z>
+            <RotZ>90</RotZ>
+            <Segment Type="normal">
+              <L>2760</L>
+            </Segment>
+          </Bar>
+          <Bar>
+            <ReinforcementType>6</ReinforcementType>
+            <SteelQuality>B500C</SteelQuality>
+            <PieceCount>5</PieceCount>
+            <Diameter>5</Diameter>
+            <X>1220</X>
+            <Z>6</Z>
+            <RotZ>90</RotZ>
+            <Segment Type="normal">
+              <L>2760</L>
+            </Segment>
+          </Bar>
+          <Alloc Type="Bar">
+            <Region>
+              <IntervalCount>7</IntervalCount>
+              <Pitch>-250</Pitch>
+              <IncludeBegin>true</IncludeBegin>
+              <IncludeEnd>true</IncludeEnd>
+              <RefIndex>2</RefIndex>
+            </Region>
+          </Alloc>
+          <Alloc Type="Bar">
+            <Region>
+              <IntervalCount>5</IntervalCount>
+              <Pitch>150</Pitch>
+              <IncludeBegin>true</IncludeBegin>
+              <IncludeEnd>true</IncludeEnd>
+              <RefIndex>5</RefIndex>
+            </Region>
+          </Alloc>
+          <Alloc Type="Bar">
+            <Region>
+              <IntervalCount>1</IntervalCount>
+              <Pitch>145</Pitch>
+              <IncludeBegin>true</IncludeBegin>
+              <IncludeEnd>true</IncludeEnd>
+              <RefIndex>6</RefIndex>
+            </Region>
+          </Alloc>
+          <Alloc Type="Bar">
+            <Region>
+              <IntervalCount>4</IntervalCount>
+              <Pitch>150</Pitch>
+              <IncludeBegin>true</IncludeBegin>
+              <IncludeEnd>true</IncludeEnd>
+              <RefIndex>7</RefIndex>
+            </Region>
+          </Alloc>
+        </Steel>
+      </Slab>
+    </Product>
+  </Order>
+</PXML_Document>

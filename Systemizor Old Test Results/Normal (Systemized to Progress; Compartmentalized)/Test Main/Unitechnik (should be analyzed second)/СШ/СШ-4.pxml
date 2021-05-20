@@ -1,0 +1,822 @@
+<?xml version="1.0"?><PXML_Document xmlns="http://progress-m.com/ProgressXML/Version1">
+  <DocInfo>
+    <MajorVersion>1</MajorVersion>
+    <MinorVersion>3</MinorVersion>
+  </DocInfo>
+  <Order>
+    <OrderNo>Обємні блоки армуван</OrderNo>
+    <DrawingDate>16.12.2020</DrawingDate>
+    <DrawingAuthor>Allpl. CompanyNam CHIEF-01</DrawingAuthor>
+    <GenericOrderInfo04>Обємні блоки армуван</GenericOrderInfo04>
+    <Product>
+      <ElementNo>СШ-4</ElementNo>
+      <ProductType>09</ProductType>
+      <TotalThickness>100</TotalThickness>
+      <PieceCount>1</PieceCount>
+      <Comment>lfdNr=0000;</Comment>
+      <StackNo>00000</StackNo>
+      <StackingSequence>000</StackingSequence>
+      <StackingLevel>000</StackingLevel>
+      <P1X>-7925</P1X>
+      <P1Y>3351</P1Y>
+      <P1Z>3010</P1Z>
+      <P2X>-7925</P2X>
+      <P2Y>3351</P2Y>
+      <P2Z>4010</P2Z>
+      <P3X>-8925</P3X>
+      <P3Y>3351</P3Y>
+      <P3Z>3010</P3Z>
+      <AdditionInfo>00</AdditionInfo>
+      <UnloadingInfo>00</UnloadingInfo>
+      <TransportInfo>00</TransportInfo>
+      <ItemPosition>@@00</ItemPosition>
+      <Slab>
+        <SlabNo>СШ-4</SlabNo>
+        <ProductAddition>00</ProductAddition>
+        <ProductionWay>00</ProductionWay>
+        <NumberOfMeansOfTransport>00000</NumberOfMeansOfTransport>
+        <TransportSequence>000</TransportSequence>
+        <PileLevel>000</PileLevel>
+        <TypeOfUnloading>00</TypeOfUnloading>
+        <MeansOfTransport>00</MeansOfTransport>
+        <SlabArea>4.708</SlabArea>
+        <SlabWeight>726.8</SlabWeight>
+        <ProductionThickness>388</ProductionThickness>
+        <MaxLength>1580</MaxLength>
+        <MaxWidth>2980</MaxWidth>
+        <IronProjectionLeft>40</IronProjectionLeft>
+        <IronProjectionRight>40</IronProjectionRight>
+        <SlabType>00</SlabType>
+        <ProjectCoordinates>-007925 003351 003010 -007925 003351 004010 -008925 003351 003010</ProjectCoordinates>
+        <ReforcemInfo>                         1</ReforcemInfo>
+        <Outline Type="lot">
+          <Height>100</Height>
+          <Name>00</Name>
+          <GenericInfo01>Стена</GenericInfo01>
+          <ConcreteQuality>C20/25</ConcreteQuality>
+          <UnitWeight>2.5</UnitWeight>
+          <Volume>0.2907</Volume>
+          <Shape>
+            <SVertex>
+              <LineAttribute>0109</LineAttribute>
+            </SVertex>
+            <SVertex>
+              <X>1580</X>
+              <LineAttribute>0009</LineAttribute>
+            </SVertex>
+            <SVertex>
+              <X>1580</X>
+              <Y>2980</Y>
+              <LineAttribute>0009</LineAttribute>
+            </SVertex>
+            <SVertex>
+              <Y>2980</Y>
+              <LineAttribute>0009</LineAttribute>
+            </SVertex>
+          </Shape>
+          <Shape>
+            <Cutout>true</Cutout>
+            <SVertex>
+              <X>375</X>
+              <Y>220</Y>
+              <LineAttribute>0009</LineAttribute>
+            </SVertex>
+            <SVertex>
+              <X>375</X>
+              <Y>2390</Y>
+              <LineAttribute>0009</LineAttribute>
+            </SVertex>
+            <SVertex>
+              <X>1205</X>
+              <Y>2390</Y>
+              <LineAttribute>0009</LineAttribute>
+            </SVertex>
+            <SVertex>
+              <X>1205</X>
+              <Y>220</Y>
+              <LineAttribute>0009</LineAttribute>
+            </SVertex>
+          </Shape>
+        </Outline>
+        <Outline Type="mountpart">
+          <X>375</X>
+          <Y>220</Y>
+          <Height>100</Height>
+          <Name>Углубление</Name>
+          <GenericInfo01>Углубление 83/217cm</GenericInfo01>
+          <MountingInstruction>0</MountingInstruction>
+          <MountPartType>00</MountPartType>
+          <MountPartLength>830</MountPartLength>
+          <MountPartWidth>2170</MountPartWidth>
+          <Shape>
+            <SVertex>
+              <LineAttribute>0000</LineAttribute>
+            </SVertex>
+            <SVertex>
+              <X>830</X>
+              <LineAttribute>0000</LineAttribute>
+            </SVertex>
+            <SVertex>
+              <X>830</X>
+              <Y>2170</Y>
+              <LineAttribute>0000</LineAttribute>
+            </SVertex>
+            <SVertex>
+              <Y>2170</Y>
+              <LineAttribute>0000</LineAttribute>
+            </SVertex>
+          </Shape>
+        </Outline>
+        <Steel Type="mesh">
+          <Z>34</Z>
+          <Name>MSA_1^1</Name>
+          <MeshType>0</MeshType>
+          <Bar>
+            <ShapeMode>schematic</ShapeMode>
+            <ReinforcementType>1</ReinforcementType>
+            <SteelQuality>B500C</SteelQuality>
+            <PieceCount>1</PieceCount>
+            <Diameter>8</Diameter>
+            <X>-48.584073464102062</X>
+            <Y>48</Y>
+            <Z>358</Z>
+            <BendingDevice>32</BendingDevice>
+            <Segment Type="normal">
+              <BendY>-90</BendY>
+              <L>350</L>
+            </Segment>
+            <Segment Type="normal">
+              <BendY>90</BendY>
+              <L>1660</L>
+            </Segment>
+            <Segment Type="normal">
+              <BendY>90</BendY>
+              <L>350</L>
+            </Segment>
+          </Bar>
+          <Bar>
+            <ShapeMode>schematic</ShapeMode>
+            <ReinforcementType>1</ReinforcementType>
+            <SteelQuality>B500C</SteelQuality>
+            <PieceCount>1</PieceCount>
+            <Diameter>8</Diameter>
+            <X>-48.584073464102062</X>
+            <Y>198</Y>
+            <Z>358</Z>
+            <BendingDevice>32</BendingDevice>
+            <Segment Type="normal">
+              <BendY>-90</BendY>
+              <L>350</L>
+            </Segment>
+            <Segment Type="normal">
+              <BendY>90</BendY>
+              <L>1660</L>
+            </Segment>
+            <Segment Type="normal">
+              <BendY>90</BendY>
+              <L>350</L>
+            </Segment>
+          </Bar>
+          <Bar>
+            <ShapeMode>schematic</ShapeMode>
+            <ReinforcementType>1</ReinforcementType>
+            <SteelQuality>B500C</SteelQuality>
+            <PieceCount>1</PieceCount>
+            <Diameter>5</Diameter>
+            <X>-46.223453261473992</X>
+            <Y>298</Y>
+            <Z>357</Z>
+            <BendingDevice>24</BendingDevice>
+            <Segment Type="normal">
+              <BendY>-90</BendY>
+              <L>350</L>
+            </Segment>
+            <Segment Type="normal">
+              <BendY>90</BendY>
+              <L>470</L>
+            </Segment>
+          </Bar>
+          <Bar>
+            <ShapeMode>schematic</ShapeMode>
+            <ReinforcementType>1</ReinforcementType>
+            <SteelQuality>B500C</SteelQuality>
+            <PieceCount>1</PieceCount>
+            <Diameter>5</Diameter>
+            <X>-46.223453261473992</X>
+            <Y>548</Y>
+            <Z>357</Z>
+            <BendingDevice>24</BendingDevice>
+            <Segment Type="normal">
+              <BendY>-90</BendY>
+              <L>350</L>
+            </Segment>
+            <Segment Type="normal">
+              <BendY>90</BendY>
+              <L>470</L>
+            </Segment>
+          </Bar>
+          <Bar>
+            <ShapeMode>schematic</ShapeMode>
+            <ReinforcementType>1</ReinforcementType>
+            <SteelQuality>B500C</SteelQuality>
+            <PieceCount>1</PieceCount>
+            <Diameter>5</Diameter>
+            <X>-46.223453261473992</X>
+            <Y>798</Y>
+            <Z>357</Z>
+            <BendingDevice>24</BendingDevice>
+            <Segment Type="normal">
+              <BendY>-90</BendY>
+              <L>350</L>
+            </Segment>
+            <Segment Type="normal">
+              <BendY>90</BendY>
+              <L>470</L>
+            </Segment>
+          </Bar>
+          <Bar>
+            <ShapeMode>schematic</ShapeMode>
+            <ReinforcementType>1</ReinforcementType>
+            <SteelQuality>B500C</SteelQuality>
+            <PieceCount>1</PieceCount>
+            <Diameter>5</Diameter>
+            <X>-46.223453261473992</X>
+            <Y>1048</Y>
+            <Z>357</Z>
+            <BendingDevice>24</BendingDevice>
+            <Segment Type="normal">
+              <BendY>-90</BendY>
+              <L>350</L>
+            </Segment>
+            <Segment Type="normal">
+              <BendY>90</BendY>
+              <L>470</L>
+            </Segment>
+          </Bar>
+          <Bar>
+            <ShapeMode>schematic</ShapeMode>
+            <ReinforcementType>1</ReinforcementType>
+            <SteelQuality>B500C</SteelQuality>
+            <PieceCount>1</PieceCount>
+            <Diameter>5</Diameter>
+            <X>-46.223453261473992</X>
+            <Y>1298</Y>
+            <Z>357</Z>
+            <BendingDevice>24</BendingDevice>
+            <Segment Type="normal">
+              <BendY>-90</BendY>
+              <L>350</L>
+            </Segment>
+            <Segment Type="normal">
+              <BendY>90</BendY>
+              <L>470</L>
+            </Segment>
+          </Bar>
+          <Bar>
+            <ShapeMode>schematic</ShapeMode>
+            <ReinforcementType>1</ReinforcementType>
+            <SteelQuality>B500C</SteelQuality>
+            <PieceCount>1</PieceCount>
+            <Diameter>5</Diameter>
+            <X>-46.223453261473992</X>
+            <Y>1548</Y>
+            <Z>357</Z>
+            <BendingDevice>24</BendingDevice>
+            <Segment Type="normal">
+              <BendY>-90</BendY>
+              <L>350</L>
+            </Segment>
+            <Segment Type="normal">
+              <BendY>90</BendY>
+              <L>470</L>
+            </Segment>
+          </Bar>
+          <Bar>
+            <ShapeMode>schematic</ShapeMode>
+            <ReinforcementType>1</ReinforcementType>
+            <SteelQuality>B500C</SteelQuality>
+            <PieceCount>1</PieceCount>
+            <Diameter>5</Diameter>
+            <X>-46.223453261473992</X>
+            <Y>1798</Y>
+            <Z>357</Z>
+            <BendingDevice>24</BendingDevice>
+            <Segment Type="normal">
+              <BendY>-90</BendY>
+              <L>350</L>
+            </Segment>
+            <Segment Type="normal">
+              <BendY>90</BendY>
+              <L>470</L>
+            </Segment>
+          </Bar>
+          <Bar>
+            <ShapeMode>schematic</ShapeMode>
+            <ReinforcementType>1</ReinforcementType>
+            <SteelQuality>B500C</SteelQuality>
+            <PieceCount>1</PieceCount>
+            <Diameter>5</Diameter>
+            <X>-46.223453261473992</X>
+            <Y>2048</Y>
+            <Z>357</Z>
+            <BendingDevice>24</BendingDevice>
+            <Segment Type="normal">
+              <BendY>-90</BendY>
+              <L>350</L>
+            </Segment>
+            <Segment Type="normal">
+              <BendY>90</BendY>
+              <L>470</L>
+            </Segment>
+          </Bar>
+          <Bar>
+            <ShapeMode>schematic</ShapeMode>
+            <ReinforcementType>1</ReinforcementType>
+            <SteelQuality>B500C</SteelQuality>
+            <PieceCount>1</PieceCount>
+            <Diameter>5</Diameter>
+            <X>-46.223453261473992</X>
+            <Y>2298</Y>
+            <Z>357</Z>
+            <BendingDevice>24</BendingDevice>
+            <Segment Type="normal">
+              <BendY>-90</BendY>
+              <L>350</L>
+            </Segment>
+            <Segment Type="normal">
+              <BendY>90</BendY>
+              <L>470</L>
+            </Segment>
+          </Bar>
+          <Bar>
+            <ShapeMode>schematic</ShapeMode>
+            <ReinforcementType>1</ReinforcementType>
+            <SteelQuality>B500C</SteelQuality>
+            <PieceCount>1</PieceCount>
+            <Diameter>8</Diameter>
+            <X>-48.584073464102062</X>
+            <Y>2448</Y>
+            <Z>358</Z>
+            <BendingDevice>32</BendingDevice>
+            <Segment Type="normal">
+              <BendY>-90</BendY>
+              <L>350</L>
+            </Segment>
+            <Segment Type="normal">
+              <BendY>90</BendY>
+              <L>1660</L>
+            </Segment>
+            <Segment Type="normal">
+              <BendY>90</BendY>
+              <L>350</L>
+            </Segment>
+          </Bar>
+          <Bar>
+            <ShapeMode>schematic</ShapeMode>
+            <ReinforcementType>1</ReinforcementType>
+            <SteelQuality>B500C</SteelQuality>
+            <PieceCount>1</PieceCount>
+            <Diameter>8</Diameter>
+            <X>-48.584073464102062</X>
+            <Y>2548</Y>
+            <Z>358</Z>
+            <BendingDevice>32</BendingDevice>
+            <Segment Type="normal">
+              <BendY>-90</BendY>
+              <L>350</L>
+            </Segment>
+            <Segment Type="normal">
+              <BendY>90</BendY>
+              <L>1660</L>
+            </Segment>
+            <Segment Type="normal">
+              <BendY>90</BendY>
+              <L>350</L>
+            </Segment>
+          </Bar>
+          <Bar>
+            <ShapeMode>schematic</ShapeMode>
+            <ReinforcementType>1</ReinforcementType>
+            <SteelQuality>B500C</SteelQuality>
+            <PieceCount>1</PieceCount>
+            <Diameter>5</Diameter>
+            <X>-46.223453261473992</X>
+            <Y>2798</Y>
+            <Z>357</Z>
+            <BendingDevice>24</BendingDevice>
+            <Segment Type="normal">
+              <BendY>-90</BendY>
+              <L>350</L>
+            </Segment>
+            <Segment Type="normal">
+              <BendY>90</BendY>
+              <L>1660</L>
+            </Segment>
+            <Segment Type="normal">
+              <BendY>90</BendY>
+              <L>350</L>
+            </Segment>
+          </Bar>
+          <Bar>
+            <ShapeMode>schematic</ShapeMode>
+            <ReinforcementType>1</ReinforcementType>
+            <SteelQuality>B500C</SteelQuality>
+            <PieceCount>1</PieceCount>
+            <Diameter>8</Diameter>
+            <X>-48.584073464102062</X>
+            <Y>2923</Y>
+            <Z>358</Z>
+            <BendingDevice>32</BendingDevice>
+            <Segment Type="normal">
+              <BendY>-90</BendY>
+              <L>350</L>
+            </Segment>
+            <Segment Type="normal">
+              <BendY>90</BendY>
+              <L>1660</L>
+            </Segment>
+            <Segment Type="normal">
+              <BendY>90</BendY>
+              <L>350</L>
+            </Segment>
+          </Bar>
+          <Bar>
+            <ReinforcementType>1</ReinforcementType>
+            <SteelQuality>B500C</SteelQuality>
+            <PieceCount>1</PieceCount>
+            <Diameter>8</Diameter>
+            <X>130</X>
+            <Y>148</Y>
+            <Z>8</Z>
+            <Segment Type="normal">
+              <L>1320</L>
+            </Segment>
+          </Bar>
+          <Bar>
+            <ReinforcementType>1</ReinforcementType>
+            <SteelQuality>B500C</SteelQuality>
+            <PieceCount>1</PieceCount>
+            <Diameter>8</Diameter>
+            <X>130</X>
+            <Y>2498</Y>
+            <Z>8</Z>
+            <Segment Type="normal">
+              <L>1320</L>
+            </Segment>
+          </Bar>
+          <Bar>
+            <ShapeMode>schematic</ShapeMode>
+            <ReinforcementType>1</ReinforcementType>
+            <SteelQuality>B500C</SteelQuality>
+            <PieceCount>1</PieceCount>
+            <Diameter>5</Diameter>
+            <X>1230</X>
+            <Y>298</Y>
+            <Z>7</Z>
+            <BendingDevice>24</BendingDevice>
+            <Segment Type="normal">
+              <L>390</L>
+            </Segment>
+            <Segment Type="normal">
+              <BendY>90</BendY>
+              <L>350</L>
+            </Segment>
+          </Bar>
+          <Bar>
+            <ShapeMode>schematic</ShapeMode>
+            <ReinforcementType>1</ReinforcementType>
+            <SteelQuality>B500C</SteelQuality>
+            <PieceCount>1</PieceCount>
+            <Diameter>5</Diameter>
+            <X>1230</X>
+            <Y>548</Y>
+            <Z>7</Z>
+            <BendingDevice>24</BendingDevice>
+            <Segment Type="normal">
+              <L>390</L>
+            </Segment>
+            <Segment Type="normal">
+              <BendY>90</BendY>
+              <L>350</L>
+            </Segment>
+          </Bar>
+          <Bar>
+            <ShapeMode>schematic</ShapeMode>
+            <ReinforcementType>1</ReinforcementType>
+            <SteelQuality>B500C</SteelQuality>
+            <PieceCount>1</PieceCount>
+            <Diameter>5</Diameter>
+            <X>1230</X>
+            <Y>798</Y>
+            <Z>7</Z>
+            <BendingDevice>24</BendingDevice>
+            <Segment Type="normal">
+              <L>390</L>
+            </Segment>
+            <Segment Type="normal">
+              <BendY>90</BendY>
+              <L>350</L>
+            </Segment>
+          </Bar>
+          <Bar>
+            <ShapeMode>schematic</ShapeMode>
+            <ReinforcementType>1</ReinforcementType>
+            <SteelQuality>B500C</SteelQuality>
+            <PieceCount>1</PieceCount>
+            <Diameter>5</Diameter>
+            <X>1230</X>
+            <Y>1048</Y>
+            <Z>7</Z>
+            <BendingDevice>24</BendingDevice>
+            <Segment Type="normal">
+              <L>390</L>
+            </Segment>
+            <Segment Type="normal">
+              <BendY>90</BendY>
+              <L>350</L>
+            </Segment>
+          </Bar>
+          <Bar>
+            <ShapeMode>schematic</ShapeMode>
+            <ReinforcementType>1</ReinforcementType>
+            <SteelQuality>B500C</SteelQuality>
+            <PieceCount>1</PieceCount>
+            <Diameter>5</Diameter>
+            <X>1230</X>
+            <Y>1298</Y>
+            <Z>7</Z>
+            <BendingDevice>24</BendingDevice>
+            <Segment Type="normal">
+              <L>390</L>
+            </Segment>
+            <Segment Type="normal">
+              <BendY>90</BendY>
+              <L>350</L>
+            </Segment>
+          </Bar>
+          <Bar>
+            <ShapeMode>schematic</ShapeMode>
+            <ReinforcementType>1</ReinforcementType>
+            <SteelQuality>B500C</SteelQuality>
+            <PieceCount>1</PieceCount>
+            <Diameter>5</Diameter>
+            <X>1230</X>
+            <Y>1548</Y>
+            <Z>7</Z>
+            <BendingDevice>24</BendingDevice>
+            <Segment Type="normal">
+              <L>390</L>
+            </Segment>
+            <Segment Type="normal">
+              <BendY>90</BendY>
+              <L>350</L>
+            </Segment>
+          </Bar>
+          <Bar>
+            <ShapeMode>schematic</ShapeMode>
+            <ReinforcementType>1</ReinforcementType>
+            <SteelQuality>B500C</SteelQuality>
+            <PieceCount>1</PieceCount>
+            <Diameter>5</Diameter>
+            <X>1230</X>
+            <Y>1798</Y>
+            <Z>7</Z>
+            <BendingDevice>24</BendingDevice>
+            <Segment Type="normal">
+              <L>390</L>
+            </Segment>
+            <Segment Type="normal">
+              <BendY>90</BendY>
+              <L>350</L>
+            </Segment>
+          </Bar>
+          <Bar>
+            <ShapeMode>schematic</ShapeMode>
+            <ReinforcementType>1</ReinforcementType>
+            <SteelQuality>B500C</SteelQuality>
+            <PieceCount>1</PieceCount>
+            <Diameter>5</Diameter>
+            <X>1230</X>
+            <Y>2048</Y>
+            <Z>7</Z>
+            <BendingDevice>24</BendingDevice>
+            <Segment Type="normal">
+              <L>390</L>
+            </Segment>
+            <Segment Type="normal">
+              <BendY>90</BendY>
+              <L>350</L>
+            </Segment>
+          </Bar>
+          <Bar>
+            <ShapeMode>schematic</ShapeMode>
+            <ReinforcementType>1</ReinforcementType>
+            <SteelQuality>B500C</SteelQuality>
+            <PieceCount>1</PieceCount>
+            <Diameter>5</Diameter>
+            <X>1230</X>
+            <Y>2298</Y>
+            <Z>7</Z>
+            <BendingDevice>24</BendingDevice>
+            <Segment Type="normal">
+              <L>390</L>
+            </Segment>
+            <Segment Type="normal">
+              <BendY>90</BendY>
+              <L>350</L>
+            </Segment>
+          </Bar>
+          <Bar>
+            <ReinforcementType>2</ReinforcementType>
+            <SteelQuality>B500C</SteelQuality>
+            <PieceCount>1</PieceCount>
+            <Diameter>8</Diameter>
+            <X>70</X>
+            <Y>10</Y>
+            <RotZ>90</RotZ>
+            <Segment Type="normal">
+              <L>2960</L>
+            </Segment>
+          </Bar>
+          <Bar>
+            <ReinforcementType>2</ReinforcementType>
+            <SteelQuality>B500C</SteelQuality>
+            <PieceCount>1</PieceCount>
+            <Diameter>5</Diameter>
+            <X>170</X>
+            <Y>10</Y>
+            <Z>1</Z>
+            <RotZ>90</RotZ>
+            <Segment Type="normal">
+              <L>2960</L>
+            </Segment>
+          </Bar>
+          <Bar>
+            <ReinforcementType>2</ReinforcementType>
+            <SteelQuality>B500C</SteelQuality>
+            <PieceCount>1</PieceCount>
+            <Diameter>8</Diameter>
+            <X>270</X>
+            <Y>10</Y>
+            <RotZ>90</RotZ>
+            <Segment Type="normal">
+              <L>2960</L>
+            </Segment>
+          </Bar>
+          <Bar>
+            <ReinforcementType>2</ReinforcementType>
+            <SteelQuality>B500C</SteelQuality>
+            <PieceCount>1</PieceCount>
+            <Diameter>8</Diameter>
+            <X>320</X>
+            <Y>10</Y>
+            <RotZ>90</RotZ>
+            <Segment Type="normal">
+              <L>2960</L>
+            </Segment>
+          </Bar>
+          <Bar>
+            <ReinforcementType>2</ReinforcementType>
+            <SteelQuality>B500C</SteelQuality>
+            <PieceCount>1</PieceCount>
+            <Diameter>5</Diameter>
+            <X>370</X>
+            <Y>2420</Y>
+            <Z>1</Z>
+            <RotZ>90</RotZ>
+            <Segment Type="normal">
+              <L>540</L>
+            </Segment>
+          </Bar>
+          <Bar>
+            <ReinforcementType>2</ReinforcementType>
+            <SteelQuality>B500C</SteelQuality>
+            <PieceCount>1</PieceCount>
+            <Diameter>5</Diameter>
+            <X>470</X>
+            <Y>2420</Y>
+            <Z>1</Z>
+            <RotZ>90</RotZ>
+            <Segment Type="normal">
+              <L>540</L>
+            </Segment>
+          </Bar>
+          <Bar>
+            <ReinforcementType>2</ReinforcementType>
+            <SteelQuality>B500C</SteelQuality>
+            <PieceCount>1</PieceCount>
+            <Diameter>5</Diameter>
+            <X>620</X>
+            <Y>2420</Y>
+            <Z>1</Z>
+            <RotZ>90</RotZ>
+            <Segment Type="normal">
+              <L>540</L>
+            </Segment>
+          </Bar>
+          <Bar>
+            <ReinforcementType>2</ReinforcementType>
+            <SteelQuality>B500C</SteelQuality>
+            <PieceCount>1</PieceCount>
+            <Diameter>5</Diameter>
+            <X>790</X>
+            <Y>2420</Y>
+            <Z>1</Z>
+            <RotZ>90</RotZ>
+            <Segment Type="normal">
+              <L>540</L>
+            </Segment>
+          </Bar>
+          <Bar>
+            <ReinforcementType>2</ReinforcementType>
+            <SteelQuality>B500C</SteelQuality>
+            <PieceCount>1</PieceCount>
+            <Diameter>5</Diameter>
+            <X>960</X>
+            <Y>2420</Y>
+            <Z>1</Z>
+            <RotZ>90</RotZ>
+            <Segment Type="normal">
+              <L>540</L>
+            </Segment>
+          </Bar>
+          <Bar>
+            <ReinforcementType>2</ReinforcementType>
+            <SteelQuality>B500C</SteelQuality>
+            <PieceCount>1</PieceCount>
+            <Diameter>5</Diameter>
+            <X>1110</X>
+            <Y>2420</Y>
+            <Z>1</Z>
+            <RotZ>90</RotZ>
+            <Segment Type="normal">
+              <L>540</L>
+            </Segment>
+          </Bar>
+          <Bar>
+            <ReinforcementType>2</ReinforcementType>
+            <SteelQuality>B500C</SteelQuality>
+            <PieceCount>1</PieceCount>
+            <Diameter>5</Diameter>
+            <X>1210</X>
+            <Y>2420</Y>
+            <Z>1</Z>
+            <RotZ>90</RotZ>
+            <Segment Type="normal">
+              <L>540</L>
+            </Segment>
+          </Bar>
+          <Bar>
+            <ReinforcementType>2</ReinforcementType>
+            <SteelQuality>B500C</SteelQuality>
+            <PieceCount>1</PieceCount>
+            <Diameter>8</Diameter>
+            <X>1260</X>
+            <Y>10</Y>
+            <RotZ>90</RotZ>
+            <Segment Type="normal">
+              <L>2960</L>
+            </Segment>
+          </Bar>
+          <Bar>
+            <ReinforcementType>2</ReinforcementType>
+            <SteelQuality>B500C</SteelQuality>
+            <PieceCount>1</PieceCount>
+            <Diameter>8</Diameter>
+            <X>1310</X>
+            <Y>10</Y>
+            <RotZ>90</RotZ>
+            <Segment Type="normal">
+              <L>2960</L>
+            </Segment>
+          </Bar>
+          <Bar>
+            <ReinforcementType>2</ReinforcementType>
+            <SteelQuality>B500C</SteelQuality>
+            <PieceCount>1</PieceCount>
+            <Diameter>5</Diameter>
+            <X>1410</X>
+            <Y>10</Y>
+            <Z>1</Z>
+            <RotZ>90</RotZ>
+            <Segment Type="normal">
+              <L>2960</L>
+            </Segment>
+          </Bar>
+          <Bar>
+            <ReinforcementType>2</ReinforcementType>
+            <SteelQuality>B500C</SteelQuality>
+            <PieceCount>1</PieceCount>
+            <Diameter>8</Diameter>
+            <X>1510</X>
+            <Y>10</Y>
+            <RotZ>90</RotZ>
+            <Segment Type="normal">
+              <L>2960</L>
+            </Segment>
+          </Bar>
+        </Steel>
+      </Slab>
+    </Product>
+  </Order>
+</PXML_Document>

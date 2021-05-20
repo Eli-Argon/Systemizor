@@ -1,0 +1,63 @@
+BAD EXTENSION   \                                              Test Panels.txt                     
+COULDN'T READ   \Unitechnik (should be analyzed second)\ÑÂØ\   ÑÂØ-1                               
+COULDN'T READ   \Unitechnik (should be analyzed second)\ÑÂØ\   ÑÂØ-2                               
+COULDN'T READ   \Unitechnik (should be analyzed second)\ÑÂØ\   ÑÂØ-3                               
+COULDN'T READ   \Unitechnik (should be analyzed second)\ÑÂØ\   ÑÂØ-4                               
+DOUBLE FORMAT   \Unitechnik (should be analyzed second)\ÍÑ\    ÍÑ-33                               
+DOUBLE FORMAT   \Unitechnik (should be analyzed second)\ÍÑ\    ÍÑ-34                               
+DOUBLE FORMAT   \Unitechnik (should be analyzed second)\ÍÑ\    ÍÑ-38                               
+DOUBLE FORMAT   \Unitechnik (should be analyzed second)\Ï\     Ï-123                               
+DOUBLE FORMAT   \Unitechnik (should be analyzed second)\ÏÃ\    ÏÃ-1                                
+DOUBLE FORMAT   \Unitechnik (should be analyzed second)\ÏÃ\    ÏÃ-20                               
+DOUBLE FORMAT   \Unitechnik (should be analyzed second)\ÏÃ\    ÏÃ-21                               
+DOUBLE FORMAT   \Unitechnik (should be analyzed second)\ÏË\    ÏË-2                                
+DOUBLE FORMAT   \Unitechnik (should be analyzed second)\ÏË\    ÏË-4                                
+DOUBLE FORMAT   \Unitechnik (should be analyzed second)\ÏË\    ÏË-5                                
+DOUBLE FORMAT   \Unitechnik (should be analyzed second)\ÑÂ\    ÑÂ-12                               
+DOUBLE FORMAT   \Unitechnik (should be analyzed second)\ÑÂ\    ÑÂ-55                               
+DOUBLE FORMAT   \Unitechnik (should be analyzed second)\ÑØ\    ÑØ-2                                
+NAMES DIVERGE   \Unitechnik (should be analyzed second)\ÂÊ\    ÂÊ-60                                  Internal name: «ÍÑ-60»      
+NAMES DIVERGE   \Unitechnik (should be analyzed second)\ÂÊ\    ÂÊ-62                                  Internal name: «Â-62»       
+NAMES DIVERGE   \Unitechnik (should be analyzed second)\ÂÊ\    ÂÊ-63                                  Internal name: «ÑÂ×-63»     
+NAMES DIVERGE   \Unitechnik (should be analyzed second)\ÂÊ\    ÂÊ-65                                  Internal name: «Â-65»       
+NAMES DIVERGE   \Unitechnik (should be analyzed second)\ÂÊ\    ÂÊ-68                                  Internal name: «Ï-68»       
+OLD INNR DATE   \Progress (should be analyzed first)\NS\       NS-1 20-06-02.pxml                     Internal date: «20181108»   
+OLD INNR DATE   \Progress (should be analyzed first)\NS\       NS-2 20-10-13.pxml                     Internal date: «20180913»   
+OLD INNR DATE   \Progress (should be analyzed first)\NS\       NS-9 20-10-12.pxml                     Internal date: «20180916»   
+OLD INNR DATE   \Progress (should be analyzed first)\NS\       NS-10 20-10-13.pxml                    Internal date: «20181108»   
+OLD INNR DATE   \Progress (should be analyzed first)\NS\       NS-17 20-07-13.pxml                    Internal date: «20181004»   
+OLD INNR DATE   \Progress (should be analyzed first)\NS\       NS-21 20-06-15.pxml                    Internal date: «20181108»   
+OLD INNR DATE   \Progress (should be analyzed first)\NS\       NS-33 21-02-08.pxml                    Internal date: «20210203»   
+OLD INNR DATE   \Progress (should be analyzed first)\NS\       NS-34 21-02-08.pxml                    Internal date: «20210203»   
+OLD INNR DATE   \Progress (should be analyzed first)\P\        P-51 19-03-13.pxml                     Internal date: «20190219»   
+OLD INNR DATE   \Progress (should be analyzed first)\P\        P-84 20-08-12.pxml                     Internal date: «20200416»   
+OLD INNR DATE   \Progress (should be analyzed first)\PG\       PG-20 20-12-15 (Obsolete).pxml         Internal date: «20201118»   
+OLD INNR DATE   \Progress (should be analyzed first)\PG\       PG-21 20-12-15 (Obsolete).pxml         Internal date: «20201118»   
+OLD INNR DATE   \Progress (should be analyzed first)\SSh\      SSh-1 20-09-16.pxml                    Internal date: «20200913»   
+OLD INNR DATE   \Progress (should be analyzed first)\SSh\      SSh-3 20-09-16.pxml                    Internal date: «20200913»   
+OLD INNR DATE   \Progress (should be analyzed first)\SSh\      SSh-4 20-09-23 (6to5).pxml             Internal date: «20200913»   
+OLD INNR DATE   \Progress (should be analyzed first)\SSh\      SSh-5 20-09-16.pxml                    Internal date: «20200913»   
+OLD INNR DATE   \Progress (should be analyzed first)\SSh\      SSh-6 21-01-15.pxml                    Internal date: «20200913»   
+OLD INNR DATE   \Progress (should be analyzed first)\SSh\      SSh-7 21-01-15.pxml                    Internal date: «20200913»   
+OLD INNR DATE   \Progress (should be analyzed first)\SV\       SV-47 21-04-15.pxml                    Internal date: «20210413»   
+OLD INNR DATE   \Unitechnik (should be analyzed second)\Â\     Â-1-01                                 Internal date: «20000219»   
+OLD INNR DATE   \Unitechnik (should be analyzed second)\Â\     Â-06-6                                 Internal date: «20001202»   
+OLD INNR DATE   \Unitechnik (should be analyzed second)\Â\     Â-08-08                                Internal date: «20000714»   
+OLD INNR DATE   \Unitechnik (should be analyzed second)\Â\     Â-33-33 26-03-13                       Internal date: «20000304»   
+OLD INNR DATE   \Unitechnik (should be analyzed second)\Â\     Â-56-56 21-03-13                       Internal date: «20000304»   
+OLD INNR DATE   \Unitechnik (should be analyzed second)\Â\     Â-62-62                                Internal date: «20000801»   
+OLD INNR DATE   \Unitechnik (should be analyzed second)\Â\     Â-70-70                                Internal date: «20000306»   
+OLD INNR DATE   \Unitechnik (should be analyzed second)\Â\     Â-139                                  Internal date: «20000309»   
+OLD NAME DATE   \Progress (should be analyzed first)\NS\       NS-33 21-03-03 (Replacement).pxml      Name date: «20210303»       
+OLD NAME DATE   \Progress (should be analyzed first)\NS\       NS-34 21-03-03 (Replacement).pxml      Name date: «20210303»       
+OLD NAME DATE   \Progress (should be analyzed first)\NS\       NS-38 21-03-03.pxml                    Name date: «20210303»       
+OLD NAME DATE   \Progress (should be analyzed first)\SSh\      SSh-4 20-09-16.pxml                    Name date: «20200916»       
+OLD NAME DATE   \Progress (should be analyzed first)\SSh\      SSh-6 20-09-16.pxml                    Name date: «20200916»       
+OLD NAME DATE   \Progress (should be analyzed first)\SSh\      SSh-7 20-09-16.pxml                    Name date: «20200916»       
+OLD NAME DATE   \Progress (should be analyzed first)\SV\       SV-12 19-12-27.pxml                    Name date: «20191227»       
+OLD NAME DATE   \Progress (should be analyzed first)\V\        V-71 21-02-12.pxml                     Name date: «20210212»       
+UNKNOWN PANEL   \Unitechnik (should be analyzed second)\Â\     Â-71-17                             
+UNKNOWN PANEL   \Unitechnik (should be analyzed second)\Â\     Â-71-170f 21-03-13                  
+UNKNOWN PANEL   \Unitechnik (should be analyzed second)\Â\     Â-71-711 25-03-13                   
+UNKNOWN PANEL   \Unitechnik (should be analyzed second)\Â\     Â-71-1705                           
+

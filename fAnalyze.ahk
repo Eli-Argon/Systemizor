@@ -1,117 +1,280 @@
-﻿fAnalyze(pInputDir) {
+﻿; Takes a path to a folder with panel files. Gathers data about them. Only one version per panel (tries to pick the newest).
+; Returns = { dPanelList:                « See below. »
+;               , aSkippedFiles:           « An array of data on files that didn't make it into dPanelList. »
+;               , isAnyRenamed:         « If any file's name has applicable renamings. »
+;               , nFilesTotal:              « Number of all files in pInputDir. »
+;               , nPanelsTotalUnique:  « Number of unique panels\panelnames. »
+;               , nFilesSkipped:          « Number of files that didn't make it into dPanelList. »
+;               , nPanelsProgress:      « Number of panels in Progress format. »
+;               , nPanelsUnitechnik:    « Number of panels in Unitechnik format. »
+;              }
+;
+; dPanelList = {<panel's name>: { sName: <panel's name>
+;                                           , sFileName:            « Full filename with extension. »
+;                                           , sNewFileName:     « Full filename after renamings. »
+;                                           , pFile:                    « C:\input_dir\dir\file »
+;                                           , pDir:                     « C:\input_dir\dir »
+;                                           , pRelFile:                « \dir\file »
+;                                           , pRelDir:                « \dir\ »
+;                                           , nInternalDate:        « The panel's internal date that was extracted from sFileContents, e.g.: 20190203 »
+;                                           , nFileModifiedDate: « The last modified date of the panel's file, e.g.: 20211224 »
+;                                           , nFileNameDate:     « If filename contains a date in <panelname>\sYY-MM-DD format. »
+;                                           , sFormat:               « Unitechnik or Progress. »
+;                                           , sFileContents:        « The file's contents as text. »},
+;                  <panel's name>: {}, ...
+;                 }
+; aSkippedFiles = [ { sFileName, sNewFileName, pFile, pDir, pRelFile, pRelDir }, ..., { sFileName, ... } ]
+fAnalyze(pInputDir, sOutputFormat, aRenamings) {
     Local
 	Global oLogger
-    dResults := {nChaosLevel: 0, dPanelList: {}, nTotalFiles: 0, nTotalPanels: 0
-				, nSkipped: 0, nChaoticPXML: 0, nChaoticNoExt: 0, nSystemized: 0}
+    dPanelList := {}, aSkippedFiles := [], isAnyRenamed := false
+    nFilesTotal := 0, nPanelsTotalUnique := 0, nFilesSkipped := 0, nPanelsProgress := 0, nPanelsUnitechnik := 0
 
     Loop, files, % pInputDir "\*", R ; Iterating through the files in the input directory.
     {
-        If InStr(A_LoopFileDir, (pInputDir "\Z"), true) ; Anything in the Z folder is ignored.
-            continue
-        dResults.nTotalFiles++
+        If ( InStr(A_LoopFileDir, (pInputDir "\Я"), true) or InStr(A_LoopFileDir, (".git"), true) )
+            continue   ; Anything in the «Я» and «.git» folders is ignored.
 
-        If ((A_LoopFileExt != "pxml") and (A_LoopFileExt != "")) { ; Skip if wrong extension.
-            dResults.nSkipped++
-			oLogger.add("Пропущено", "EXTENSION", A_LoopFileDir "\", A_LoopFileName)
-			continue
+        nFilesTotal++
+
+        sFileName := A_LoopFileName
+        pFile := A_LoopFileLongPath                                        ; "C:\input_dir\dir\file"
+        pRelFile := StrReplace(A_LoopFileLongPath, pInputDir)  ; "\dir\file"
+        pRelDir := StrReplace(pRelFile, A_LoopFileName)           ; "\dir\"
+        pDir := RTrim(pInputDir . pRelDir, "\")                           ; "C:\input_dir\dir"
+
+        ; #################################   vvv  RENAMING  vvv  ######################################## ;
+        sNewFileName := A_LoopFileName
+        For _, aPair in aRenamings {
+            sRegex := aPair[1], sReplacement := aPair[2]
+            sNewFileName := RegExReplace(sNewFileName, sRegex, sReplacement)
+        }
+        If (sNewFileName != A_LoopFileName) {
+            isAnyRenamed := true
+            oLogger.add("Переименовано", pRelDir, A_LoopFileName, sNewFileName)
+        }
+        ; #################################   ^^^  RENAMING  ^^^  ######################################## ;        
+
+        If ( (A_LoopFileExt != "pxml") and (A_LoopFileExt != "PXML") and (A_LoopFileExt != "")
+             and !RegExMatch(A_LoopFileExt, "S)\d\d?") ) {
+            nFilesSkipped++
+            aSkippedFiles.Push( { "sFileName": sFileName, "sNewFileName": sNewFileName, "pFile": pFile, "pDir": pDir, "pRelFile": pRelFile, "pRelDir": pRelDir } )
+			oLogger.add("Пропущено", "BAD EXTENSION", pRelDir, A_LoopFileName)
+			continue  ; SKIPPED if wrong extension.
 		}
 
-        dVersion := { pSauceLoco: A_LoopFileLongPath }
-		isNameSystemized := (RegExMatch(A_LoopFileName, "sSx)^"
-						. "(?<name>[A-Zauoech]{1,6}-\d+)\s"
-						. "(?<date>[012][890123]-[01]\d-[0123]\d)", sPanel_))
-        If isNameSystemized {
-			sPanel := sPanel_name
-			dVersion.sFullName := A_LoopFileName
-			dVersion.pRelFile := StrReplace(A_LoopFileLongPath, pInputDir)
-       	    dVersion.pRelDir := StrReplace(dVersion.pRelFile, A_LoopFileName)
-			dVersion.nDate := "20" StrReplace(sPanel_date, "-")
-        } else { ; + + + + + + + + + + + +  Systemizing + + + + + + + + + + + + + + + + + + + +#
-			If not RegExMatch(A_LoopFileName
-			, "isSx)^\d? (?<type> [A-ZА-Я]{1,6}) - (?<num1> \d+) (?<num2> -\d+)? (?<rest> .*)"
-			, sPanel_) {
-				fAbort(ErrorLevel, A_ThisFunc, "RegExMatch error.")				
-				dResults.nSkipped++
-				oLogger.add("Пропущено", "NOT MATCHED", A_LoopFileDir "\", A_LoopFileName)
-				continue
-			}       
-			If (sPanel_num2 != "")
-			and (LTrim(sPanel_num1, "0") != LTrim(SubStr(sPanel_num2, 2), "0")) {
-				dResults.nSkipped++
-				oLogger.add("Пропущено", "NUMS DIFFER", A_LoopFileDir "\", A_LoopFileName)
-				continue
-			}
-			
-			StringUpper, sPanelType, sPanel_type
-			sPanelType := fTransliterate(sPanelType)
-			sPanel := sPanelType "-" LTrim(sPanel_num1, "0") ; Removing leading zeroes.
-			sDate := SubStr(A_LoopFileTimeModified, 3, 2) "-" ; Year (last two digits)
-				   . SubStr(A_LoopFileTimeModified, 5, 2) "-" ; Month
-				   . SubStr(A_LoopFileTimeModified, 7, 2)     ; Day
-			
-			RegExMatch(sPanel_rest, "sSx)"      ; Removing trash from file name.
-					. "^(?<mod>  [-_\s]?(new|opt|modern|mod|зм\d?|v2)){0,3}"
-					. " (?<cor>  \s\( (OPT|COR) .*\) )?"
-					. " (?<date> \s" sDate ")?" ; If the name already has a date.
-					. " (?<rest> .*)", sCleaned_)
-			dVersion.sFullName := sPanel " " sDate sCleaned_rest
+		aPNDFP := fGetPanelNameDateFilePath(A_LoopFileLongPath)
+        sPanelNameFilePath := aPNDFP[1], nNameDate := aPNDFP[2]
+        If !sPanelNameFilePath {
+            nFilesSkipped++
+            aSkippedFiles.Push( { "sFileName": sFileName, "sNewFileName": sNewFileName, "pFile": pFile, "pDir": pDir, "pRelFile": pRelFile, "pRelDir": pRelDir } )
+			oLogger.add("Пропущено", "UNKNOWN PANEL", pRelDir, A_LoopFileName)
+            continue  ; SKIPPED if couldn't get the panel's name from the file's name.
+        }
 
-			dVersion.pRelDir := StrReplace(StrReplace(A_LoopFileLongPath, pInputDir), A_LoopFileName)
-			dVersion.pRelFile := dVersion.pRelDir . dVersion.sFullName
-			dVersion.nDate := SubStr(A_LoopFileTimeModified, 1, 8)
+        aPanelData := ""
+        If (A_LoopFileExt == "") {
+            aPanelData := fReadPanelU(A_LoopFileLongPath)
+            If aPanelData {
+                nPanelsUnitechnik++
+                sPanelFormat := "Unitechnik"
+            }
+        } else {
+            aPanelData := fReadPanelP(A_LoopFileLongPath)
+             If aPanelData {
+                nPanelsProgress++
+                sPanelFormat := "Progress"
+            }
+        }
 
-        } ; + + + + + + + + + + + + + + + + + + + + + + + + + Systemizing + + + + + + + + + + +#
-		If ((A_LoopFileExt == "pxml") and isNameSystemized) {
-            dResults.nSystemized++
-			dVersion.isPXML := true
-			oLogger.add("Перенесено", A_LoopFileDir "\", A_LoopFileName)
-		} else if ((A_LoopFileExt == "pxml") and !isNameSystemized) {
-			dResults.nChaosLevel := 1
-			dResults.nChaoticPXML++
-			dVersion.isPXML := true
-			oLogger.add("Переименовано", A_LoopFileDir "\", A_LoopFileName, dVersion.sFullName)
-		} else {
-			dResults.nChaosLevel := 2
-			dResults.nChaoticNoExt++
-			dVersion.isPXML := false
-			oLogger.add("Переделано", A_LoopFileDir "\", A_LoopFileName, dVersion.sFullName . ".pxml")
-		}
+        If aPanelData {
+            sPanel := aPanelData[1], nInternalDate := aPanelData[2], sFileContents := aPanelData[3]
+        } else {
+            nFilesSkipped++
+            aSkippedFiles.Push( { "sFileName": sFileName, "sNewFileName": sNewFileName, "pFile": pFile, "pDir": pDir, "pRelFile": pRelFile, "pRelDir": pRelDir } )
+			oLogger.add("Пропущено", "COULDN'T READ", pRelDir, A_LoopFileName)
+            continue ; SKIPPED if couldn't read the file.
+        }    
 
-	    If (dResults.dPanelList.HasKey(sPanel)) {
-	        For idx, dListedVer in dResults.dPanelList[(sPanel)]
-		    	fAbort(dVersion.nDate == dListedVer.nDate, A_ThisFunc
-				, "У двух версий """ sPanel """ та же дата."
-				, { "dVersion.pSauceLoco": dVersion.pSauceLoco, "dVersion.nDate": dVersion.nDate })
-			dResults.dPanelList[(sPanel)].Push(dVersion) ; Add a new version to panel %sPanel%.
-	    } else {
-	        dResults.nTotalPanels++
-			dResults.dPanelList[(sPanel)] := [ dVersion ] ; Or if this is the first version
-	    }                                                 ; of the panel %sPanel%.
+        If (sPanel != sPanelNameFilePath) {
+            nFilesSkipped++
+            aSkippedFiles.Push( { "sFileName": sFileName, "sNewFileName": sNewFileName, "pFile": pFile, "pDir": pDir, "pRelFile": pRelFile, "pRelDir": pRelDir } )
+			oLogger.add("Пропущено", "NAMES DIVERGE", pRelDir, A_LoopFileName, "   Internal name: «" sPanel "»")
+            continue  ; SKIPPED if external and internal panel names don't match.
+        }
+
+        FileGetTime, nFileModifiedTime, A_LoopFileLongPath
+        nFileModifiedDate := SubStr(nFileModifiedTime, 1, 8)
+
+        If ( dPanelList.HasKey( sPanel ) ) { ; If this panel name is already in dPanelList.
+
+            If (dPanelList[sPanel].nInternalDate > nInternalDate) { ; If list panel's inner date is NEWER than loop panel's.
+                nFilesSkipped++
+                aSkippedFiles.Push( { "sFileName": sFileName, "sNewFileName": sNewFileName, "pFile": pFile, "pDir": pDir, "pRelFile": pRelFile, "pRelDir": pRelDir } )
+			    oLogger.add("Пропущено", "OLD INNR DATE", pRelDir, A_LoopFileName, "   Internal date: «" nInternalDate "»")
+                continue ; SKIPPED because a newer version is already in dPanelList.
+
+            ; ##################################### vvv INNER DATES EQUAL vvv ################################# ;
+
+            } else if (dPanelList[sPanel].nInternalDate == nInternalDate) { ; If inner dates are EQUAL.
+
+                 If (dPanelList[sPanel].sFormat != sPanelFormat) { ; If formats don't match.
+                    nFilesSkipped++
+                    sPreferredFormat := (sOutputFormat != "Progress" and sOutputFormat != "Unitechnik") ? "Progress" : sOutputFormat
+
+                    If (sPanelFormat != sPreferredFormat) {
+                        aSkippedFiles.Push( { "sFileName": sFileName, "sNewFileName": sNewFileName, "pFile": pFile, "pDir": pDir, "pRelFile": pRelFile, "pRelDir": pRelDir } )
+                        oLogger.add("Пропущено", "DOUBLE FORMAT", pRelDir, A_LoopFileName)
+                        continue ; SKIPPED because this panel has two versions in both formats and the loop panel is not sPreferredFormat.
+                    } else {
+                        aSkippedFiles.Push( { "sFileName": dPanelList[sPanel].sFileName, "sNewFileName": dPanelList[sPanel].sNewFileName, "pFile": dPanelList[sPanel].pFile, "pDir": dPanelList[sPanel].pDir, "pRelFile": dPanelList[sPanel].pRelFile, "pRelDir": dPanelList[sPanel].pRelDir } )
+                        oLogger.add("Пропущено", "DOUBLE FORMAT", dPanelList[sPanel].pRelDir, dPanelList[sPanel].sFileName)
+                        ; Proceed with adding loop panel's data to the panel list because it's in sPreferredFormat.
+                    }
+
+                } else if (dPanelList[sPanel].sFileContents == sFileContents) { ; If same format and both files have identical contents.
+                    nFilesSkipped++
+                    aSkippedFiles.Push( { "sFileName": sFileName, "sNewFileName": sNewFileName, "pFile": pFile, "pDir": pDir, "pRelFile": pRelFile, "pRelDir": pRelDir } )
+                    oLogger.add("Пропущено", "SAME CONTENTS", pRelDir, A_LoopFileName)
+                    continue ; SKIPPED because file contents are identical.
+
+                } else if (dPanelList[sPanel].nFileModifiedDate > nFileModifiedDate) { ; If list panel's file is newer.
+                    nFilesSkipped++
+                    aSkippedFiles.Push( { "sFileName": sFileName, "sNewFileName": sNewFileName, "pFile": pFile, "pDir": pDir, "pRelFile": pRelFile, "pRelDir": pRelDir } )
+                    oLogger.add("Пропущено", "OLD FILE DATE", pRelDir, A_LoopFileName, "   File Modified date: «" nFileModifiedDate "»")
+                    continue ; SKIPPED because this file is older than the one that's already in dPanelList.
+
+                } else if (dPanelList[sPanel].nFileModifiedDate < nFileModifiedDate) { ; If list panel's file is older.
+                    nFilesSkipped++
+                    aSkippedFiles.Push( { "sFileName": dPanelList[sPanel].sFileName, "sNewFileName": dPanelList[sPanel].sNewFileName, "pFile": dPanelList[sPanel].pFile, "pDir": dPanelList[sPanel].pDir, "pRelFile": dPanelList[sPanel].pRelFile, "pRelDir": dPanelList[sPanel].pRelDir } )
+                    oLogger.add("Пропущено", "OLD FILE DATE", dPanelList[sPanel].pRelDir, dPanelList[sPanel].sFileName, "   File Modified date: «" dPanelList[sPanel].nFileModifiedDate "»")
+                    ; Proceed with adding loop panel's data to the panel list. (Because same internal, but newer file date.)
+
+                } else if ( dPanelList[sPanel].nNameDate > nNameDate ) {
+                    nFilesSkipped++
+                    aSkippedFiles.Push( { "sFileName": sFileName, "sNewFileName": sNewFileName, "pFile": pFile, "pDir": pDir, "pRelFile": pRelFile, "pRelDir": pRelDir } )
+                    oLogger.add("Пропущено", "OLD NAME DATE", pRelDir, A_LoopFileName, "   Name date: «" nNameDate "»")
+                    continue ; SKIPPED because the loop panel has an earlier filename date.
+
+                } else if ( dPanelList[sPanel].nNameDate < nNameDate ) {
+                    nFilesSkipped++
+                    aSkippedFiles.Push( { "sFileName": dPanelList[sPanel].sFileName, "sNewFileName": dPanelList[sPanel].sNewFileName, "pFile": dPanelList[sPanel].pFile, "pDir": dPanelList[sPanel].pDir, "pRelFile": dPanelList[sPanel].pRelFile, "pRelDir": dPanelList[sPanel].pRelDir } )
+                    oLogger.add("Пропущено", "OLD NAME DATE", dPanelList[sPanel].pRelDir, dPanelList[sPanel].sFileName, "   Name date: «" dPanelList[sPanel].nNameDate "»")
+                    ; Proceed with adding loop panel's data to the panel list because it has a later filename date.
+
+                } else fAbort( true, A_ThisFunc, "Все три даты одинаковые, но содержимое фаи̌лов разное."
+                , {"dPanelList[""" sPanel """].pFile": dPanelList[sPanel].pFile, "pFile": pFile}) ; Don't know which to pick so throw an error.
+
+            ; ####################################### ^^^ INNER DATES EQUAL ^^^ ################################# ;
+
+            } else if (dPanelList[sPanel].nInternalDate < nInternalDate) { ; If list panel's date is OLDER than loop panel's.
+                nFilesSkipped++
+                aSkippedFiles.Push( { "sFileName": dPanelList[sPanel].sFileName, "sNewFileName": dPanelList[sPanel].sNewFileName, "pFile": dPanelList[sPanel].pFile, "pDir": dPanelList[sPanel].pDir, "pRelFile": dPanelList[sPanel].pRelFile, "pRelDir": dPanelList[sPanel].pRelDir } )
+                oLogger.add("Пропущено", "OLD INNR DATE", dPanelList[sPanel].pRelDir, dPanelList[sPanel].sFileName, "   Internal date: «" dPanelList[sPanel].nInternalDate "»")
+                ; Proceed with adding loop panel's data to the panel list. (Because newer internal date.)
+            }
+        
+        } else ( nPanelsTotalUnique += 1 ) ; Proceed with adding loop panel's data to the list because it's a new panel. (dPanelList.HasKey == false)
+
+        dPanelList[sPanel] := { "sName": sPanel, "sFileName": sFileName, "sNewFileName": sNewFileName
+                                        , "pFile": pFile, "pDir": pDir, "pRelFile": pRelFile, "pRelDir": pRelDir
+                                        , "nInternalDate": nInternalDate, "nFileModifiedDate": nFileModifiedDate, "nNameDate":  nNameDate
+                                        , "sFormat": sPanelFormat, "sFileContents": sFileContents}
     }
 
-    fAbort(dResults.nTotalFiles != ( dResults.nSystemized
-	+ dResults.nChaoticPXML + dResults.nChaoticNoExt + dResults.nSkipped ), A_ThisFunc
-	, "По некоторым причинам некоторые файлы были пропущены."
-	, { "dResults.nTotalFiles": dResults.nTotalFiles
-	  , "dResults.nSystemized": dResults.nSystemized
-	  , "dResults.nChaoticPXML": dResults.nChaoticPXML
-	  , "dResults.nChaoticNoExt": dResults.nChaoticNoExt
-	  , "dResults.nSkipped": dResults.nSkipped })
+    fAbort(nFilesTotal != (nPanelsTotalUnique + nFilesSkipped ), A_ThisFunc, "Какие-то фаи̌лы потерялись."
+    , { "nFilesTotal": nFilesTotal, "nPanelsTotalUnique": nPanelsTotalUnique
+    , "nPanelsProgress": nPanelsProgress, "nPanelsUnitechnik": nPanelsUnitechnik, "nFilesSkipped": nFilesSkipped })
+     fAbort(nFilesTotal != ( dPanelList.Count() + aSkippedFiles.Count() ), A_ThisFunc, "Какие-то фаи̌лы потерялись."
+	, { "nFilesTotal": nFilesTotal, "dPanelList.Count()": dPanelList.Count(), "aSkippedFiles.Count()": aSkippedFiles.Count() })
 
-    return dResults    
+    return {"dPanelList": dPanelList, "aSkippedFiles": aSkippedFiles, "isAnyRenamed": isAnyRenamed
+    , "nFilesTotal": nFilesTotal, "nPanelsTotalUnique": nPanelsTotalUnique, "nFilesSkipped": nFilesSkipped
+    , "nPanelsProgress": nPanelsProgress, "nPanelsUnitechnik": nPanelsUnitechnik}    
 }
 
-fTransliterate(str) {
+
+
+; Reads Unitechnik panel. Returns [sInternalName, nInternalDate, sFileContents] or "".
+fReadPanelU(pPanel) {
     Local
-    dRusToEng := {"А": "A", "Б": "B", "В": "V", "Г": "G", "Д": "D", "Е": "Je", "Ё": "Jo", "Ж": "Zh", "З": "Z", "И": "I"
-				 ,"Й": "J", "К": "K", "Л": "L", "М": "M", "Н": "N", "О": "O", "П": "P", "Р": "R", "С": "S", "Т": "T"
-				 ,"У": "U", "Ф": "F", "Х": "H", "Ц": "C", "Ч": "Ch", "Ш": "Sh", "Щ": "Shch", "Ъ": "bitch you crazy"
-				 ,"Ы": "Y", "Ь": "waat", "Э": "E", "Ю": "Ju", "Я": "Ja"}
-    newStr := ""
-    Loop, parse, str
-        If RegExMatch(A_LoopField, "S)[А-Я]")
-            newStr .= dRusToEng[A_LoopField]
-        else
-            newStr .= A_LoopField
-    return newStr
+
+    oFile := FileOpen(pPanel, "r-rwd", "CP1251")
+    sContents := oFile.Read()
+    oFile.Close()
+    fAbort(sContents == "", A_ThisFunc, "Неудалось прочитать фаи̌л.", { "pPanel": pPanel, "sContents": sContents })
+
+    nPos := RegExMatch(sContents, "Sx)^"
+    . "HEADER__\r?\n600\r?\n  (?: .++\r?\n){13}"
+    . "(?<day>[0123]\d) \. (?<month>[01]\d) \. (?<year>20[012]\d) \r?\n"
+    . "(?:.++\r?\n){2}  END\r?\n  SLABDATE\r?\n600\r?\n"
+    . "\d? (?<type> [А-Я]{1,6} | В\(к\)) - (?<num> \d+)  \s", sMatch_)
+    fAbort(ErrorLevel, A_ThisFunc, "Regex error.")
+    If !nPos
+        return ""
+    fAbort(sMatch_year == "", A_ThisFunc, "Неудалось наи̌ти дату чертежа.", { "pPanel": pPanel, "sContents": sContents })
+
+    nPanelDate := sMatch_year . sMatch_month . sMatch_day
+    sPanelType := (sMatch_type == "В(к)") ? "ВК" : sMatch_type
+    sPanelNum := LTrim(sMatch_num, "0")
+    sPanelName := sPanelType "-" sPanelNum
+
+    return [sPanelName, nPanelDate, sContents]
+}
+
+; Reads Progress panel. Returns [sInternalName, nInternalDate, sFileContents] or "".
+fReadPanelP(pPanel) {
+    Local
+
+    oXML := ComObjCreate("MSXML2.DOMDocument.6.0")
+	oXML.async := false, oXML.preserveWhiteSpace := true
+    oXML.load(pPanel)
+    fAbort(oXML.parseError.errorCode, A_ThisFunc, "Ошибка при чтении PXML-файла."
+    , { "pPanel": pPanel, "oXML.parseError.errorCode": oXML.parseError.errorCode, "oXML.parseError.reason": oXML.parseError.reason })
+    sContents := oXML.xml
+
+    If !sContents
+        return ""
+    nPanelDate := oXML.selectSingleNode("/" ns("PXML_Document", "Order", "DrawingDate")).Text
+    nPanelDate := SubStr(nPanelDate, 7, 4) . SubStr(nPanelDate, 4, 2) . SubStr(nPanelDate, 1, 2)
+    sPanelName := oXML.selectSingleNode("/" ns("PXML_Document", "Order", "Product", "ElementNo")).Text
+    sPanelName := RegExReplace(LTrim(sPanelName, "45"), "S)В\(к\)", "ВК")
+
+    return [sPanelName, nPanelDate, sContents]
+}
+
+; Tries to get panel name from its file name, if fails returns empty string. Also if there is a date (YY-MM-DD) in the filename
+; returns it as well; returns 0 if there isn't one.     Returns: [ panelname, date ]
+fGetPanelNameDateFilePath(pFile) {
+    Local
+
+    SplitPath, pFile, sFileName, pDir, sExt, sFileNameBare
+
+    ;!!!!!!!!!!!!!!!!!!!  vvv  LATIN => CYRILLIC   vvv  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!;
+    aLatinToCyrillic := [ ["ixS) (?<!\.) [a-zа-я]++.", "$U0"] ; Capitalizes everything except file extensions
+    , ["^V-", "В-"], ["^VK-", "ВК-"], ["^VC-", "ВЦ-"], ["^VT-", "ВТ-"], ["^NS-", "НС-"], ["^NT-", "НТ-"], ["^NC-", "НЦ-"]
+    , ["^P-", "П-"], ["^PV-", "ПВ-"], ["^PG-", "ПГ-"], ["^PK-", "ПК-"], ["^PL-", "ПЛ-"], ["^PT-", "ПТ-"], ["^PC-", "ПЦ-"]
+    , ["^SV-", "СВ-"], ["^SVSH-", "СВШ-"], ["^SSH-", "СШ-"], ["^PTKR-", "ПТКР-"], ["^KR-", "КР-"], ["^Z-", "Я-"] ]
+
+    For _, aPair in aLatinToCyrillic
+        sFileNameBare := RegExReplace( sFileNameBare, aPair[1], aPair[2] )
+    ;!!!!!!!!!!!!!!!!!!!  ^^^  LATIN => CYRILLIC    ^^^  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!;
+    
+    nPos := RegExMatch(sFileNameBare , "isSx)^\d? (?<type> [А-Я]{1,6} | В\(к\)) - (?<num1> \d+) (?<num2> -\d+)?"
+                                                            . "(\s (?<year> [012]\d) - (?<month> [01]\d) - (?<day> [0123]\d) )?", sPanel_)
+	fAbort(ErrorLevel, A_ThisFunc, "Regex error.")
+    If !nPos
+        return ""    
+    If ( (sPanel_num2 != "") and (LTrim(sPanel_num1, "0") != LTrim(SubStr(sPanel_num2, 2), "0")) )
+	    return ""
+    
+    sPanelType := (sPanel_type == "В(к)") ? "ВК" : sPanel_type
+    StringUpper, sPanelType, sPanelType
+    sPanelName := sPanelType "-" LTrim(sPanel_num1, "0") ; Removing leading zeroes.
+    
+    If ( sPanel_year )
+        nPanelDate := "20" sPanel_year sPanel_month sPanel_day
+    else nPanelDate := 0
+
+    return [ sPanelName, nPanelDate ]
 }
