@@ -12,7 +12,7 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 ;@Ahk2Exe-SetMainIcon Things\Systemizor.ico
 ;@Ahk2Exe-SetCompanyName Konovalenko Systems
 ;@Ahk2Exe-SetCopyright Eli Konovalenko
-;@Ahk2Exe-SetVersion 4.0.0
+;@Ahk2Exe-SetVersion 4.0.1
 
 #Include fAnalyze.ahk
 #Include fSystemize.ahk
