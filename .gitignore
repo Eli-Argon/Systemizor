@@ -1,3 +1,4 @@
 Thumbs.db
 *.log
-\Test *
+/Test/
+/Test */

@@ -12,7 +12,7 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 ;@Ahk2Exe-SetMainIcon Things\Systemizor.ico
 ;@Ahk2Exe-SetCompanyName Konovalenko Systems
 ;@Ahk2Exe-SetCopyright Eli Konovalenko
-;@Ahk2Exe-SetVersion 4.0.1
+;@Ahk2Exe-SetVersion 4.0.2
 
 #Include fAnalyze.ahk
 #Include fSystemize.ahk
@@ -81,8 +81,8 @@ If ( sMode == "Rename" ) {
 
 } else {
 
-    If ( ( sOutputFormat == "Progress" or sOutputFormat == "Unitechnik" )
-         and ( dResults.nPanelsProgress > 0 and dResults.nPanelsUnitechnik > 0 ) )
+    If ( ( sOutputFormat == "Progress" and dResults.nPanelsUnitechnik > 0 )
+         or ( sOutputFormat == "Unitechnik" and dResults.nPanelsProgress > 0 ) )
         isConversionNeeded := true
     else isConversionNeeded := false
 
