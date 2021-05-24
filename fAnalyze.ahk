@@ -88,7 +88,8 @@ fAnalyze(pInputDir, sOutputFormat, aRenamings) {
         }
 
         If aPanelData {
-            sPanel := aPanelData[1], nInternalDate := aPanelData[2], sFileContents := aPanelData[3]
+            sPanel := RegExReplace(aPanelData[1], "^В\(к\)-", "ВК-")
+            nInternalDate := aPanelData[2], sFileContents := aPanelData[3]
         } else {
             nFilesSkipped++
             aSkippedFiles.Push( { "sFileName": sFileName, "sNewFileName": sNewFileName, "pFile": pFile, "pDir": pDir, "pRelFile": pRelFile, "pRelDir": pRelDir } )
