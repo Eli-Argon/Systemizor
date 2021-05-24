@@ -261,15 +261,14 @@ fGetPanelNameDateFilePath(pFile) {
         sFileNameBare := RegExReplace( sFileNameBare, aPair[1], aPair[2] )
     ;!!!!!!!!!!!!!!!!!!!  ^^^  LATIN => CYRILLIC    ^^^  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!;
     
-    nPos := RegExMatch(sFileNameBare , "isSx)^\d? (?<type> [А-Я]{1,6} | В\(к\)) - (?<num1> \d+) (?<num2> -\d+)?"
+    nPos := RegExMatch(sFileNameBare , "isSx)^\d? (?<type> [а-яА-Я]{1,6} | В\(к\)) - (?<num1> \d+) (?<num2> -\d+)?"
                                                             . "(\s (?<year> [012]\d) - (?<month> [01]\d) - (?<day> [0123]\d) )?", sPanel_)
 	fAbort(ErrorLevel, A_ThisFunc, "Regex error.")
     If !nPos
         return ""    
     If ( (sPanel_num2 != "") and (LTrim(sPanel_num1, "0") != LTrim(SubStr(sPanel_num2, 2), "0")) )
 	    return ""
-    
-    sPanelType := (sPanel_type == "В(к)") ? "ВК" : sPanel_type
+    sPanelType := (sPanel_type == "В(к)" or sPanel_type == "В(К)") ? "ВК" : sPanel_type
     StringUpper, sPanelType, sPanelType
     sPanelName := sPanelType "-" LTrim(sPanel_num1, "0") ; Removing leading zeroes.
     
