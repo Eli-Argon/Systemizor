@@ -12,7 +12,7 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 ;@Ahk2Exe-SetMainIcon Things\Systemizor.ico
 ;@Ahk2Exe-SetCompanyName Konovalenko Systems
 ;@Ahk2Exe-SetCopyright Eli Konovalenko
-;@Ahk2Exe-SetVersion 4.0.2
+;@Ahk2Exe-SetVersion 4.0.3
 
 #Include fAnalyze.ahk
 #Include fSystemize.ahk
@@ -30,15 +30,15 @@ If !((A_ComputerName == "160037-MMR" and InStr(FileExist("C:\Progress\MSystem\Im
 }
 
 fAbort(!FileExist("Systemizor.ini"), "Systemizor", """Systemizor.ini"" не наи̌ден.")
-IniRead, pInputDir,              Systemizor.ini, IO,          Input
-IniRead, pOutputSourceDir, Systemizor.ini,  IO,          OutputSource
-IniRead, pOutputMainDir,    Systemizor.ini,  IO,          OutputMain
-IniRead, pOutputExtraDir,   Systemizor.ini,  IO,          OutputExtra
+IniRead, pInputDir,         Systemizor.ini,  IO,        Input
+IniRead, pOutputSourceDir,  Systemizor.ini,  IO,        OutputSource
+IniRead, pOutputMainDir,    Systemizor.ini,  IO,        OutputMain
+IniRead, pOutputExtraDir,   Systemizor.ini,  IO,        OutputExtra
 IniRead, sOutputFormat,     Systemizor.ini,  Options,   OutputFormat
-IniRead, sMode,                 Systemizor.ini,  Options,   Mode
-IniRead, sPanelsToSplit,     Systemizor.ini,   Options,    Split
-IniRead, isRenaming,          Systemizor.ini,  Options,    Renaming
-IniRead, sRenamings,         Systemizor.ini,   Renamings
+IniRead, sMode,             Systemizor.ini,  Options,   Mode
+IniRead, sPanelsToSplit,    Systemizor.ini,  Options,   Split
+IniRead, isRenaming,        Systemizor.ini,  Options,   Renaming
+IniRead, sRenamings,        Systemizor.ini,  Renamings
 
 aPanelsToSplit := ( sPanelsToSplit != "ERROR" ) ? StrSplit( sPanelsToSplit, ",", " `r`n" ) : ""
 If (sRenamings != "ERROR") {
@@ -51,12 +51,12 @@ If (sRenamings != "ERROR") {
 } else aRenamings := ""
 
 isTest := InStr(FileExist("Test"), "D", true)
-pInputDir :=             isTest ? (A_ScriptDir "\Test"                      ) : pInputDir
-pOutputSourceDir := isTest ? (A_ScriptDir "\Test SYSTEMIZED") : pOutputSourceDir
-pOutputMainDir :=    isTest ? (A_ScriptDir "\Test Main"              ) : pOutputMainDir
-pOutputExtraDir :=    isTest ? (A_ScriptDir "\Test Extra"             ) : pOutputExtraDir
+pInputDir :=         isTest ? (A_ScriptDir "\Test"           ) : pInputDir
+pOutputSourceDir :=  isTest ? (A_ScriptDir "\Test SYSTEMIZED") : pOutputSourceDir
+pOutputMainDir :=    isTest ? (A_ScriptDir "\Test Main"      ) : pOutputMainDir
+pOutputExtraDir :=   isTest ? (A_ScriptDir "\Test Extra"     ) : pOutputExtraDir
 pOutputRenamedDir := pInputDir " RENAMED"
-pOutputSortedDir := pInputDir " SORTED"
+pOutputSortedDir :=  pInputDir " SORTED"
 pOutputSkippedDir := pInputDir " SKIPPED"
 fAbort(!InStr(FileExist(pInputDir), "D", true), "Systemizor", "Папка """ pInputDir """ не найдена.")
       
@@ -94,10 +94,6 @@ If ( sMode == "Rename" ) {
             FileCopyDir, % pInputDir "\Я", % pOutputSourceDir "\Я", false
             fAbort(ErrorLevel, A_ThisFunc, "Ошибка копирования папки ""Я""")
         }
-        If InStr(FileExist(pInputDir "\.git"), "D", true) {
-            FileCopyDir, % pInputDir "\.git", % pOutputSourceDir "\.git", false
-            fAbort(ErrorLevel, A_ThisFunc, "Ошибка копирования папки "".git""")
-        }
     } else {
         nPanelsSplit := 0
         For _, dPanel in dResults.dPanelList {
@@ -118,6 +114,12 @@ If ( sMode == "Rename" ) {
             fAbort(ErrorLevel, A_ThisFunc, "Ошибка копирования папки ""Я""")
         }
     }
+}
+
+; ###  Copying «.git» folder to output. ### ;
+If InStr(FileExist(pInputDir "\.git"), "D", true) {
+    FileCopyDir, % pInputDir "\.git", % pOutputSourceDir "\.git", false
+    fAbort(ErrorLevel, A_ThisFunc, "Ошибка копирования папки "".git""")
 }
 
 If ( isRenaming )
