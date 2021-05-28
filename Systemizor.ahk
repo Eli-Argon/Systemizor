@@ -74,11 +74,19 @@ If ( sMode == "Rename" ) {
     fSystemize(dResults.aSkippedFiles, pOutputRenamedDir, true, false, "")
     oLogger.save([ "Переименовано" ])
 
+    If InStr(FileExist(pInputDir "\.git"), "D", true) {
+        FileCopyDir, % pInputDir "\.git", % pOutputRenamedDir "\.git", false
+        fAbort(ErrorLevel, A_ThisFunc, "Ошибка копирования папки "".git""")
+    }
 } else if ( sMode == "Sort" ) {
 
     fSystemize(dResults.dPanelList, pOutputSortedDir, isRenaming, false, "")
-    fSystemize(dResults.aSkippedFiles, pOutputSkippedDir, false, false, "")    
+    fSystemize(dResults.aSkippedFiles, pOutputSkippedDir, false, false, "")
 
+    If InStr(FileExist(pInputDir "\.git"), "D", true) {
+        FileCopyDir, % pInputDir "\.git", % pOutputSortedDir "\.git", false
+        fAbort(ErrorLevel, A_ThisFunc, "Ошибка копирования папки "".git""")
+    }
 } else {
 
     If ( ( sOutputFormat == "Progress" and dResults.nPanelsUnitechnik > 0 )
@@ -93,6 +101,11 @@ If ( sMode == "Rename" ) {
         If InStr(FileExist(pInputDir "\Я"), "D", true) {
             FileCopyDir, % pInputDir "\Я", % pOutputSourceDir "\Я", false
             fAbort(ErrorLevel, A_ThisFunc, "Ошибка копирования папки ""Я""")
+        }
+        ; ###  Copying «.git» folder to output. ### ;
+        If InStr(FileExist(pInputDir "\.git"), "D", true) {
+            FileCopyDir, % pInputDir "\.git", % pOutputSourceDir "\.git", false
+            fAbort(ErrorLevel, A_ThisFunc, "Ошибка копирования папки "".git""")
         }
     } else {
         nPanelsSplit := 0
@@ -114,12 +127,6 @@ If ( sMode == "Rename" ) {
             fAbort(ErrorLevel, A_ThisFunc, "Ошибка копирования папки ""Я""")
         }
     }
-}
-
-; ###  Copying «.git» folder to output. ### ;
-If InStr(FileExist(pInputDir "\.git"), "D", true) {
-    FileCopyDir, % pInputDir "\.git", % pOutputSourceDir "\.git", false
-    fAbort(ErrorLevel, A_ThisFunc, "Ошибка копирования папки "".git""")
 }
 
 If ( isRenaming )
